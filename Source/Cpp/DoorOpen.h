@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "GameFramework/Actor.h"
-#include "Engine/World.h"
 #include "Engine/TriggerVolume.h"
 #include "DoorOpen.generated.h"
 
@@ -37,6 +36,8 @@ private:
 		FRotator OpenAngle = FRotator(0, 0, 0);
 	UPROPERTY(EditAnywhere)
 	ATriggerVolume* PressurePlate;
+	UPROPERTY(EditAnywhere)
+		AActor* ActorThatOpen;
 
 	
 	
