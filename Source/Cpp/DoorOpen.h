@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "GameFramework/Actor.h"
+#include "Engine/World.h"
+#include "Engine/TriggerVolume.h"
 #include "DoorOpen.generated.h"
 
 
@@ -29,10 +31,14 @@ public:
 
 private:
 
+	AActor* Owner = GetOwner();
+
 	UPROPERTY(EditAnywhere)
 		FRotator OpenAngle = FRotator(0, 0, 0);
+	UPROPERTY(EditAnywhere)
+	ATriggerVolume* PressurePlate;
 
-	AActor* Owner = GetOwner();
+	
 	
 	
 	
