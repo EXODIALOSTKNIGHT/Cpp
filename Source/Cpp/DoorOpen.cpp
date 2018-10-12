@@ -25,9 +25,14 @@ void UDoorOpen::BeginPlay()
 
 void UDoorOpen::OpenDoorNow()
 {
-	FRotator CurrentAngle = Owner->GetActorRotation();
-	FRotator DoorOpenAngle = CurrentAngle + OpenAngle;
-	Owner->SetActorRotation(DoorOpenAngle);
+
+	Owner->SetActorRotation(OpenAngle);
+}
+
+void UDoorOpen::CloseDoorNow()
+{
+
+	Owner->SetActorRotation(FRotator(0,0,0));
 }
 
 
@@ -41,13 +46,20 @@ void UDoorOpen::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	if (PressurePlate&&PressurePlate->IsOverlappingActor(ActorThatOpen))
 	{
 		OpenDoorNow();
+		CurrentTime = GetWorld()->GetTimeSeconds();
+		//print string in UE4
+		//GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Yellow, FString::Printf(TEXT("%f"), CurrentTime));
 	}
-	else
-	{
 
-		{
-			Owner->SetActorRotation(FRotator(0, 0, 0));
-		}
+	if (GetWorld()->GetTimeSeconds() - CurrentTime > DelayTime)
+
+	{
+			CloseDoorNow();
 	}
+
+	
+	
 }
+
+
 

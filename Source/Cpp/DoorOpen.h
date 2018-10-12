@@ -8,6 +8,7 @@
 #include "Engine/TriggerVolume.h"
 #include "Engine/World.h"
 #include "GameFramework/PlayerController.h"
+#include "Engine/GameEngine.h"
 #include "DoorOpen.generated.h"
 
 
@@ -25,6 +26,7 @@ protected:
 	virtual void BeginPlay() override;
 
 	void OpenDoorNow();
+	void CloseDoorNow();
 
 public:	
 	// Called every frame
@@ -39,6 +41,9 @@ private:
 		FRotator OpenAngle = FRotator(0, 0, 0);
 	UPROPERTY(EditAnywhere)
 	ATriggerVolume* PressurePlate;
+	UPROPERTY(EditAnywhere)
+		float DelayTime = 0;
+	float CurrentTime;
 	
 
 	
