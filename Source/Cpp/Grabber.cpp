@@ -19,7 +19,7 @@ void UGrabber::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
+	GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Yellow,FString::Printf(TEXT("TALTAL")));
 	
 }
 
