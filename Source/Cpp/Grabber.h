@@ -6,6 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "Engine/GameEngine.h"
 #include "GameFramework/Actor.h"
+#include "GameFramework/PlayerController.h"
 #include "Grabber.generated.h"
 
 
@@ -26,6 +27,8 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-		
+private:
+	FVector ViewLocation;
+	FRotator ViewRotation;
 	
 };

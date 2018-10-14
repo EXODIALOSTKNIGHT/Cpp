@@ -2,6 +2,8 @@
 
 #include "Grabber.h"
 
+#define OUT
+
 
 // Sets default values for this component's properties
 UGrabber::UGrabber()
@@ -29,6 +31,15 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// ...
+	//get player view point
+	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(OUT ViewLocation, OUT ViewRotation);
+	//cast a ray
+
+	//print it.
+
+	//whenever you use print always use * before the variable so that it will work.
+	GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Yellow, FString::Printf(TEXT("%s , %s"), *ViewLocation.ToString(),*ViewRotation.ToString()));
+	//UE_LOG(LogTemp, Warning,TEXT("%s , %s "), *ViewLocation.ToString(), *ViewRotation.ToString());
+	
 }
 
