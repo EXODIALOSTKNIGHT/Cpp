@@ -8,6 +8,7 @@
 #include "GameFramework/Actor.h"
 #include "GameFramework/PlayerController.h"
 #include "DrawDebugHelpers.h"
+#include "Engine/EngineTypes.h"
 #include "Grabber.generated.h"
 
 

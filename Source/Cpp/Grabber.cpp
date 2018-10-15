@@ -20,10 +20,9 @@ UGrabber::UGrabber()
 void UGrabber::BeginPlay()
 {
 	Super::BeginPlay();
-
-	GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Yellow,FString::Printf(TEXT("TALTAL")));
 	
 }
+
 
 
 // Called every frame
@@ -36,11 +35,25 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	//cast a ray
 	LineTraceEnd = ViewLocation + (ViewRotation.Vector() * Reach);
 	DrawDebugLine(GetWorld(), ViewLocation,LineTraceEnd , FColor::Red, false, 0, 0.f, 7.f);
+
+	//detect object
+
+	//Create query parameter
+	FCollisionQueryParams CollisionQuery = (FName(TEXT("")), false, GetOwner());
+
+	FHitResult Hit;
+	GetWorld()->LineTraceSingleByObjectType(OUT Hit,ViewLocation,LineTraceEnd,FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody),CollisionQuery);
+	
 	//print it.
+	AActor* ActorHit = Hit.GetActor();
+	if (ActorHit)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Yellow, FString::Printf(TEXT("%s"), *(ActorHit->GetName())));
+	}
 
 	//whenever you use print always use * before the variable so that it will work.
-	GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Yellow, FString::Printf(TEXT("%s , %s"), *ViewLocation.ToString(),*ViewRotation.ToString()));
-
+	//GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Yellow, FString::Printf(TEXT("%s , %s"), *ViewLocation.ToString(),*ViewRotation.ToString()));
+	
 	
 }
 
