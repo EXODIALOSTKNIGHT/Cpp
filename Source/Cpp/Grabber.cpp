@@ -34,7 +34,8 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	//get player view point
 	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(OUT ViewLocation, OUT ViewRotation);
 	//cast a ray
-
+	LineTraceEnd = ViewLocation + (ViewRotation.Vector() * Reach);
+	DrawDebugLine(GetWorld(), ViewLocation,LineTraceEnd , FColor::Red, false, 0, 0.f, 7.f);
 	//print it.
 
 	//whenever you use print always use * before the variable so that it will work.

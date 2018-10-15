@@ -7,6 +7,7 @@
 #include "Engine/GameEngine.h"
 #include "GameFramework/Actor.h"
 #include "GameFramework/PlayerController.h"
+#include "DrawDebugHelpers.h"
 #include "Grabber.generated.h"
 
 
@@ -30,5 +31,9 @@ public:
 private:
 	FVector ViewLocation;
 	FRotator ViewRotation;
+
+	FVector LineTraceEnd;
+	float Reach = 80.f;
+
 	
 };
