@@ -40,7 +40,7 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 
 	//whenever you use print always use * before the variable so that it will work.
 	GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Yellow, FString::Printf(TEXT("%s , %s"), *ViewLocation.ToString(),*ViewRotation.ToString()));
-	//UE_LOG(LogTemp, Warning,TEXT("%s , %s "), *ViewLocation.ToString(), *ViewRotation.ToString());
+
 	
 }
 
