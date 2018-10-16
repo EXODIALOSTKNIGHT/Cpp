@@ -10,6 +10,7 @@
 #include "DrawDebugHelpers.h"
 #include "Engine/EngineTypes.h"
 #include "PhysicsEngine/PhysicsHandleComponent.h"
+#include "Components/InputComponent.h"
 #include "Grabber.generated.h"
 
 
@@ -31,13 +32,17 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+
 private:
 	FVector ViewLocation;
 	FRotator ViewRotation;
 
 	FVector LineTraceEnd;
 	float Reach = 80.f;
-	UPhysicsHandleComponent* Handle = nullptr;
+	UPhysicsHandleComponent* HandleComponent = nullptr;
+	UInputComponent* InputComponent = nullptr;
 
-	
+	void GrabNow();
+
+
 };

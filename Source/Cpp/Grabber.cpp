@@ -21,15 +21,19 @@ void UGrabber::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Handle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
-	if (Handle)
-	{
-		Handle->
-	}
+	HandleComponent = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
+	InputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
 	
+	if (InputComponent)
+	{
+		InputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber::GrabNow);
+	}
 }
 
-
+void UGrabber::GrabNow()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Yellow, FString::Printf(TEXT("TALTAL")));
+}
 
 // Called every frame
 void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
@@ -57,9 +61,14 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 		GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Yellow, FString::Printf(TEXT("%s"), *(ActorHit->GetName())));
 	}
 
+
+
+
 	//whenever you use print always use * before the variable so that it will work.
 	//GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Yellow, FString::Printf(TEXT("%s , %s"), *ViewLocation.ToString(),*ViewRotation.ToString()));
-	
+
 	
 }
+
+
 
