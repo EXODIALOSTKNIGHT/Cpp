@@ -20,6 +20,12 @@ UGrabber::UGrabber()
 void UGrabber::BeginPlay()
 {
 	Super::BeginPlay();
+
+	Handle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
+	if (Handle)
+	{
+		Handle->
+	}
 	
 }
 

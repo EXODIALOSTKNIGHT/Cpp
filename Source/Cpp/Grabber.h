@@ -9,7 +9,9 @@
 #include "GameFramework/PlayerController.h"
 #include "DrawDebugHelpers.h"
 #include "Engine/EngineTypes.h"
+#include "PhysicsEngine/PhysicsHandleComponent.h"
 #include "Grabber.generated.h"
+
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -35,6 +37,7 @@ private:
 
 	FVector LineTraceEnd;
 	float Reach = 80.f;
+	UPhysicsHandleComponent* Handle = nullptr;
 
 	
 };
