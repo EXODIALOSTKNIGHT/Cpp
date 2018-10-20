@@ -32,37 +32,33 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-
+	UpdateLineTrace();
 	
 }
 
 void UGrabber::GrabNow()
 {
-	HitLineTrace();
+	auto HitResult =  HitLineTrace();
+	auto ComponentToGrab = HitResult.GetComponent();
+	auto ActorHit = HitResult.GetActor();
+
+	if (ActorHit)
+	{
+		HandleComponent->GrabComponent(ComponentToGrab, NAME_None, ComponentToGrab->GetOwner()->GetActorLocation(), true);
+	}
+
+	
 }
 
 void UGrabber::ReleaseNow()
 {
-	GEngine->AddOnScreenDebugMessage(-3, 2, FColor::Red, FString::Printf((TEXT("Release"))));
-
-	//release grab component
+	HandleComponent->ReleaseComponent();
 }
 
 FHitResult UGrabber::HitLineTrace()
 {
-	//get player view point
-	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(OUT ViewLocation, OUT ViewRotation);
-	//cast a ray
-	LineTraceEnd = ViewLocation + (ViewRotation.Vector() * Reach);
-	DrawDebugLine(GetWorld(), ViewLocation, LineTraceEnd, FColor::Red, false, 0, 0.f, 7.f);
-
-	//detect object
-
-	//Create query parameter
-	FCollisionQueryParams CollisionQuery = (FName(TEXT("")), false, GetOwner());
-
-	FHitResult Hit;
-	GetWorld()->LineTraceSingleByObjectType(OUT Hit, ViewLocation, LineTraceEnd, FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody), CollisionQuery);
+	
+	FHitResult Hit = EndLineTrace();
 
 	//print it.
 	AActor* ActorHit = Hit.GetActor();
@@ -88,10 +84,37 @@ void UGrabber::CheckInputComponent()
 		InputComponent->BindAction("Grab", IE_Released, this, &UGrabber::ReleaseNow);
 	}
 }
+	
+FHitResult  UGrabber::EndLineTrace()
+{
+	//get player view point
+	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(OUT ViewLocation, OUT ViewRotation);
+	//cast a ray
+	LineTraceEnd = ViewLocation + (ViewRotation.Vector() * Reach);
 
+	//Create query parameter
+	FCollisionQueryParams CollisionQuery = (FName(TEXT("")), false, GetOwner());
 
+	FHitResult Hit;
+	GetWorld()->LineTraceSingleByObjectType(OUT Hit, ViewLocation, LineTraceEnd, FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody), CollisionQuery);
+	return Hit;
+}
+
+void UGrabber::UpdateLineTrace()
+{
+	EndLineTrace();
+
+	if (HandleComponent->GrabbedComponent)
+	{
+		HandleComponent->SetTargetLocation(LineTraceEnd);
+	}
+}
 //whenever you use print always use * before the variable so that it will work.
 	//GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Yellow, FString::Printf(TEXT("%s , %s"), *ViewLocation.ToString(),*ViewRotation.ToString()));
+
+	//draw debug line
+	//DrawDebugLine(GetWorld(), ViewLocation, LineTraceEnd, FColor::Red, false, 0, 0.f, 7.f);
+
 
 
 

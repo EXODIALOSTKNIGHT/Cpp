@@ -49,7 +49,10 @@ private:
 
 	void GrabNow();
 	void ReleaseNow();
+	void UpdateLineTrace();
 	FHitResult HitLineTrace();
+	FHitResult EndLineTrace();
+	
 
-
+	
 };
