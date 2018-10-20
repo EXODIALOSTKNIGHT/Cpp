@@ -27,12 +27,18 @@ void UGrabber::BeginPlay()
 	if (InputComponent)
 	{
 		InputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber::GrabNow);
+		InputComponent->BindAction("Grab", IE_Released, this, &UGrabber::ReleaseNow);
 	}
 }
 
 void UGrabber::GrabNow()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Yellow, FString::Printf(TEXT("TALTAL")));
+	GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Yellow, FString::Printf(TEXT("Grab")));
+}
+
+void UGrabber::ReleaseNow()
+{
+	GEngine->AddOnScreenDebugMessage(-3, 2, FColor::Red, FString::Printf((TEXT("Release"))));
 }
 
 // Called every frame
