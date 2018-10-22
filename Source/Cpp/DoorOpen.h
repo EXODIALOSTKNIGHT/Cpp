@@ -27,6 +27,7 @@ protected:
 
 	void OpenDoorNow();
 	void CloseDoorNow();
+	float GetActorTotalMass();
 
 public:	
 	// Called every frame
@@ -35,7 +36,6 @@ public:
 private:
 
 	AActor* Owner = GetOwner();
-	AActor* ActorThatOpen;
 
 	UPROPERTY(EditAnywhere)
 		FRotator OpenAngle = FRotator(0, 0, 0);
@@ -44,6 +44,11 @@ private:
 	UPROPERTY(EditAnywhere)
 		float DelayTime = 0;
 	float CurrentTime;
+
+	UPROPERTY(EditAnywhere)
+		float OpenDoorThreshold = 20.f;
+
+	
 	
 
 	

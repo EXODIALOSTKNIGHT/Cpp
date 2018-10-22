@@ -19,7 +19,7 @@ void UDoorOpen::BeginPlay()
 {
 	Super::BeginPlay();
 
-	ActorThatOpen = GetWorld()->GetFirstPlayerController()->GetPawn();
+	
 	
 }
 
@@ -36,6 +36,8 @@ void UDoorOpen::CloseDoorNow()
 }
 
 
+
+
 // Called every frame
 void UDoorOpen::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
@@ -43,12 +45,10 @@ void UDoorOpen::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 
 
 	// add PressurePlate&&PressurePlate to avoid crashing the editor when playing
-	if (PressurePlate&&PressurePlate->IsOverlappingActor(ActorThatOpen))
+	if (GetActorTotalMass() > OpenDoorThreshold)
 	{
 		OpenDoorNow();
 		CurrentTime = GetWorld()->GetTimeSeconds();
-		//print string in UE4
-		//GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Yellow, FString::Printf(TEXT("%f"), CurrentTime));
 	}
 
 	if (GetWorld()->GetTimeSeconds() - CurrentTime > DelayTime)
@@ -56,9 +56,14 @@ void UDoorOpen::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	{
 			CloseDoorNow();
 	}
+	
+}
 
-	
-	
+float UDoorOpen::GetActorTotalMass()
+{
+	TArray<AActor*> OverlappingActor;
+	PressurePlate->GetOverlappingActors(OverlappingActor);
+	return 10.f;
 }
 
 
