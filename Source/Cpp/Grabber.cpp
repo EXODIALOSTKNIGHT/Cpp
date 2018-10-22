@@ -36,6 +36,12 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	
 }
 
+void UGrabber::Initialize()
+{
+	HandleComponent = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
+	InputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
+}
+
 void UGrabber::GrabNow()
 {
 	auto HitResult =  HitLineTrace();
@@ -60,7 +66,6 @@ FHitResult UGrabber::HitLineTrace()
 	
 	FHitResult Hit = EndLineTrace();
 
-	//print it.
 	AActor* ActorHit = Hit.GetActor();
 	if (ActorHit)
 	{
@@ -70,21 +75,6 @@ FHitResult UGrabber::HitLineTrace()
 	return Hit;
 }
 
-void UGrabber::Initialize()
-{
-	HandleComponent = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
-	InputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
-}
-
-void UGrabber::CheckInputComponent()
-{
-	if (InputComponent)
-	{
-		InputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber::GrabNow);
-		InputComponent->BindAction("Grab", IE_Released, this, &UGrabber::ReleaseNow);
-	}
-}
-	
 FHitResult  UGrabber::EndLineTrace()
 {
 	//get player view point
@@ -109,6 +99,19 @@ void UGrabber::UpdateLineTrace()
 		HandleComponent->SetTargetLocation(LineTraceEnd);
 	}
 }
+
+void UGrabber::CheckInputComponent()
+{
+	if (InputComponent)
+	{
+		InputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber::GrabNow);
+		InputComponent->BindAction("Grab", IE_Released, this, &UGrabber::ReleaseNow);
+	}
+}
+	
+
+
+
 //whenever you use print always use * before the variable so that it will work.
 	//GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Yellow, FString::Printf(TEXT("%s , %s"), *ViewLocation.ToString(),*ViewRotation.ToString()));
 

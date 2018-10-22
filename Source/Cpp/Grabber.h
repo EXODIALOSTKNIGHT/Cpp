@@ -35,8 +35,7 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	
-	void Initialize();
-	void CheckInputComponent();
+	
 
 private:
 	FVector ViewLocation;
@@ -53,6 +52,7 @@ private:
 	FHitResult HitLineTrace();
 	FHitResult EndLineTrace();
 	
-
+	void Initialize();
+	void CheckInputComponent();
 	
 };
