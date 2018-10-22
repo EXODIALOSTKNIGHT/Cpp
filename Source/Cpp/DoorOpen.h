@@ -9,6 +9,7 @@
 #include "Engine/World.h"
 #include "GameFramework/PlayerController.h"
 #include "Engine/GameEngine.h"
+#include "Engine/Classes/Components/PrimitiveComponent.h"
 #include "DoorOpen.generated.h"
 
 
@@ -40,13 +41,13 @@ private:
 	UPROPERTY(EditAnywhere)
 		FRotator OpenAngle = FRotator(0, 0, 0);
 	UPROPERTY(EditAnywhere)
-	ATriggerVolume* PressurePlate;
+	ATriggerVolume* PressurePlate = nullptr;
 	UPROPERTY(EditAnywhere)
 		float DelayTime = 0;
 	float CurrentTime;
 
 	UPROPERTY(EditAnywhere)
-		float OpenDoorThreshold = 20.f;
+		float OpenDoorThreshold = 60.f;
 
 	
 	

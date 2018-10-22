@@ -2,6 +2,7 @@
 
 #include "DoorOpen.h"
 
+#define OUT
 
 // Sets default values for this component's properties
 UDoorOpen::UDoorOpen()
@@ -61,9 +62,24 @@ void UDoorOpen::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 
 float UDoorOpen::GetActorTotalMass()
 {
+	float TotalMass = 0.f;
+
+	if (!PressurePlate)
+	{
+		return TotalMass = 0;
+	}
+	
+	
 	TArray<AActor*> OverlappingActor;
-	PressurePlate->GetOverlappingActors(OverlappingActor);
-	return 10.f;
+	PressurePlate->GetOverlappingActors(OUT OverlappingActor);
+
+	for (auto& ActorOverlap : OverlappingActor)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Yellow, FString::Printf(TEXT("%s"), *ActorOverlap->GetName()));
+		TotalMass += ActorOverlap->FindComponentByClass<UPrimitiveComponent>()->GetMass();
+	}
+
+	return TotalMass;
 }
 
 
