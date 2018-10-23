@@ -48,13 +48,10 @@ void UDoorOpen::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	if (GetActorTotalMass() > OpenDoorThreshold)
 	{
 		OpenDoorNow();
-		CurrentTime = GetWorld()->GetTimeSeconds();
 	}
-
-	if (GetWorld()->GetTimeSeconds() - CurrentTime > DelayTime)
-
+	else
 	{
-			CloseDoorNow();
+		CloseDoorNow();
 	}
 	
 }
