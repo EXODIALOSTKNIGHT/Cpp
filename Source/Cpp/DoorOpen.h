@@ -14,7 +14,6 @@
 
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnOpenRequest);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCloseRequest);
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class CPP_API UDoorOpen : public UActorComponent
 {
@@ -38,7 +37,9 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FOnOpenRequest OnOpenRequest;
-	FOnCloseRequest OnCloseRequest;
+
+	UPROPERTY(BlueprintAssignable)
+	FOnOpenRequest OnCloseRequest;
 	
 
 private:
