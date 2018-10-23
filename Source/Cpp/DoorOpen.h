@@ -13,6 +13,8 @@
 #include "DoorOpen.generated.h"
 
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnOpenRequest);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCloseRequest);
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class CPP_API UDoorOpen : public UActorComponent
 {
@@ -34,20 +36,27 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	UPROPERTY(BlueprintAssignable)
+	FOnOpenRequest OnOpenRequest;
+	FOnCloseRequest OnCloseRequest;
+	
+
 private:
 
 	AActor* Owner = GetOwner();
 
 	UPROPERTY(EditAnywhere)
-		FRotator OpenAngle = FRotator(0, 0, 0);
+	FRotator OpenAngle = FRotator(0, 0, 0);
+
 	UPROPERTY(EditAnywhere)
 	ATriggerVolume* PressurePlate = nullptr;
+
 	UPROPERTY(EditAnywhere)
-		float DelayTime = 0;
+	float DelayTime = 0;
 	float CurrentTime;
 
 	UPROPERTY(EditAnywhere)
-		float OpenDoorThreshold = 60.f;
+	float OpenDoorThreshold = 60.f;
 
 	
 	

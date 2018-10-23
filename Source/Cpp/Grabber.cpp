@@ -44,10 +44,10 @@ void UGrabber::Initialize()
 
 void UGrabber::GrabNow()
 {
+	if (!HandleComponent) { return; }
 	auto HitResult =  HitLineTrace();
 	auto ComponentToGrab = HitResult.GetComponent();
 	auto ActorHit = HitResult.GetActor();
-
 	if (ActorHit)
 	{
 		HandleComponent->GrabComponent(ComponentToGrab, NAME_None, ComponentToGrab->GetOwner()->GetActorLocation(), true);
@@ -58,6 +58,7 @@ void UGrabber::GrabNow()
 
 void UGrabber::ReleaseNow()
 {
+	if (!HandleComponent) { return; }
 	HandleComponent->ReleaseComponent();
 }
 
@@ -94,6 +95,7 @@ void UGrabber::UpdateLineTrace()
 {
 	EndLineTrace();
 
+	if (!HandleComponent){ return; }
 	if (HandleComponent->GrabbedComponent)
 	{
 		HandleComponent->SetTargetLocation(LineTraceEnd);
@@ -102,6 +104,7 @@ void UGrabber::UpdateLineTrace()
 
 void UGrabber::CheckInputComponent()
 {
+	if (!InputComponent) { return;  }
 	if (InputComponent)
 	{
 		InputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber::GrabNow);

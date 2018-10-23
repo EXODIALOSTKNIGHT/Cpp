@@ -27,13 +27,12 @@ void UDoorOpen::BeginPlay()
 void UDoorOpen::OpenDoorNow()
 {
 
-	Owner->SetActorRotation(OpenAngle);
+	OnOpenRequest.Broadcast();
 }
 
 void UDoorOpen::CloseDoorNow()
 {
-
-	Owner->SetActorRotation(FRotator(0,0,0));
+	OnCloseRequest.Broadcast();
 }
 
 
@@ -64,10 +63,7 @@ float UDoorOpen::GetActorTotalMass()
 {
 	float TotalMass = 0.f;
 
-	if (!PressurePlate)
-	{
-		return TotalMass = 0;
-	}
+	if (!PressurePlate){ return TotalMass = 0; }
 	
 	
 	TArray<AActor*> OverlappingActor;
